@@ -2,4 +2,5 @@
     <string name="app_name">ECommerceTest</string>
 
     <string name="home">Home</string>
+    <string name="splash_msg">Heady - Android Skill Assessment Test (SAT)\nE-Commerce\nPrashant Bankar</string>
 </resources>
