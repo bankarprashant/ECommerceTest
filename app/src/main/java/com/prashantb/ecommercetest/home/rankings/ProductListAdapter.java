@@ -20,14 +20,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHolder> {
-    public static final String TAG = "RankingAdapter";
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder> {
+    public static final String TAG = "ProductListAdapter";
     private List<ProductDetails> rankingList = new ArrayList<>();
     private IOnItemClicked iOnItemClicked;
     private ProductTypeEnum productTypeEnum;
     private Context context;
 
-    public RankingAdapter(Context context, IOnItemClicked iOnItemClicked, ProductTypeEnum productTypeEnum) {
+    public ProductListAdapter(Context context, IOnItemClicked iOnItemClicked, ProductTypeEnum productTypeEnum) {
         this.iOnItemClicked = iOnItemClicked;
         this.context = context;
         this.productTypeEnum = productTypeEnum;
@@ -37,7 +37,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_ratings, parent, false);
+                .inflate(R.layout.item_common, parent, false);
 
         return new MyViewHolder(view);
     }
@@ -46,12 +46,15 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ProductDetails productDetails = rankingList.get(position);
         holder.titleTextView.setText(productDetails.getName());
+
         if (productTypeEnum.equals(ProductTypeEnum.MOST_ORDERED)) {
             holder.countTextView.setText(context.getString(R.string.ordered_count, productDetails.getOrderCount()));
         } else if (productTypeEnum.equals(ProductTypeEnum.MOST_VIEWED)) {
             holder.countTextView.setText(context.getString(R.string.viewed_count, productDetails.getViewCount()));
         } else if (productTypeEnum.equals(ProductTypeEnum.MOST_SHARED)) {
             holder.countTextView.setText(context.getString(R.string.shared_count, productDetails.getShares()));
+        } else {
+            holder.countTextView.setVisibility(View.GONE);
         }
 
         holder.container.setTag(holder);

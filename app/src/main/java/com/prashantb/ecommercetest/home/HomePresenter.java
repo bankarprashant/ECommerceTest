@@ -133,8 +133,6 @@ class HomePresenter implements HomeContract.Presenter {
                     }
                 }
             }
-            categoryMap.size();
-            productDetailsMap.size();
 
             orderedList = new ArrayList<>(mostOrderedMap.values());
             sharedList = new ArrayList<>(mostSharedMap.values());
@@ -149,12 +147,15 @@ class HomePresenter implements HomeContract.Presenter {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            //TODO set category list
-            view.hideProgressBar();
 
+            view.setCategoriesMap(categoryMap);
+            view.setCategoriesList(new ArrayList<>(categoryMap.values()));
             view.setMostOrderedList(orderedList);
             view.setMostViewedList(viewedList);
             view.setMostSharedList(sharedList);
+
+            view.hideProgressBar();
         }
     }
+
 }

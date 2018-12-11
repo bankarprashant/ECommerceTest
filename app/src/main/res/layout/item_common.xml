@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
-    android:layout_width="@dimen/_200dp"
-    android:layout_height="@dimen/_200dp"
+    android:layout_width="@dimen/_150dp"
+    android:layout_height="@dimen/_150dp"
     android:layout_margin="@dimen/small_space"
-    android:background="@color/splash_bg">
+    android:background="@color/splash_bg"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/titleTextView"

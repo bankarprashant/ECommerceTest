@@ -37,6 +37,10 @@
         <activity
             android:name=".productDetails.ProductDetailsActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".CategoriesListActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
