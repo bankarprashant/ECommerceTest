@@ -3,14 +3,16 @@ package com.prashant.apilib.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Tax {
+import java.io.Serializable;
+
+public class Tax implements Serializable {
 
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("value")
     @Expose
-    private Float value;
+    private Double value;
 
     public String getName() {
         return name;
@@ -20,11 +22,11 @@ public class Tax {
         this.name = name;
     }
 
-    public Float getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Float value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.prashant.apilib.models.ProductDetails;
 import com.prashantb.ecommercetest.R;
-import com.prashantb.ecommercetest.common.AppConstants;
 import com.prashantb.ecommercetest.common.IOnItemClicked;
-import com.prashantb.ecommercetest.common.RatingEnum;
+import com.prashantb.ecommercetest.common.ProductTypeEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +24,13 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
     public static final String TAG = "RankingAdapter";
     private List<ProductDetails> rankingList = new ArrayList<>();
     private IOnItemClicked iOnItemClicked;
-    private RatingEnum ratingEnum;
+    private ProductTypeEnum productTypeEnum;
     private Context context;
 
-    public RankingAdapter(Context context, IOnItemClicked iOnItemClicked, RatingEnum ratingEnum) {
+    public RankingAdapter(Context context, IOnItemClicked iOnItemClicked, ProductTypeEnum productTypeEnum) {
         this.iOnItemClicked = iOnItemClicked;
         this.context = context;
-        this.ratingEnum = ratingEnum;
+        this.productTypeEnum = productTypeEnum;
     }
 
     @NonNull
@@ -47,11 +46,11 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ProductDetails productDetails = rankingList.get(position);
         holder.titleTextView.setText(productDetails.getName());
-        if (ratingEnum.equals(RatingEnum.MOST_ORDERED)) {
+        if (productTypeEnum.equals(ProductTypeEnum.MOST_ORDERED)) {
             holder.countTextView.setText(context.getString(R.string.ordered_count, productDetails.getOrderCount()));
-        } else if (ratingEnum.equals(RatingEnum.MOST_VIEWED)) {
+        } else if (productTypeEnum.equals(ProductTypeEnum.MOST_VIEWED)) {
             holder.countTextView.setText(context.getString(R.string.viewed_count, productDetails.getViewCount()));
-        } else if (ratingEnum.equals(RatingEnum.MOST_SHARED)) {
+        } else if (productTypeEnum.equals(ProductTypeEnum.MOST_SHARED)) {
             holder.countTextView.setText(context.getString(R.string.shared_count, productDetails.getShares()));
         }
 
@@ -62,7 +61,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
                 MyViewHolder holder1 = (MyViewHolder) view.getTag();
 
                 if (iOnItemClicked != null) {
-                    iOnItemClicked.itemClicked(AppConstants.TYPE_RATING, holder1.getAdapterPosition());
+                    iOnItemClicked.itemClicked(productTypeEnum, holder1.getAdapterPosition());
                 }
             }
         });

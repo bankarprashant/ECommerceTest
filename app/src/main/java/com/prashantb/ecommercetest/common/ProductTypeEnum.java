@@ -1,7 +1,8 @@
 package com.prashantb.ecommercetest.common;
 
-public enum RatingEnum {
+public enum ProductTypeEnum {
     MOST_ORDERED,
     MOST_VIEWED,
-    MOST_SHARED
+    MOST_SHARED,
+    CATEGORIES
 }

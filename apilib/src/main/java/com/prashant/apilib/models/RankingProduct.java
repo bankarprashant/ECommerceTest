@@ -3,7 +3,9 @@ package com.prashant.apilib.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RankingProduct extends RankingFields {
+import java.io.Serializable;
+
+public class RankingProduct extends RankingFields implements Serializable {
 
     @SerializedName("id")
     @Expose

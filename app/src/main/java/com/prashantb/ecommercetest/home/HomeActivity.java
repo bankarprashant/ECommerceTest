@@ -13,13 +13,15 @@ import com.prashantb.ecommercetest.BaseActivity;
 import com.prashantb.ecommercetest.R;
 import com.prashantb.ecommercetest.common.AppConstants;
 import com.prashantb.ecommercetest.common.IOnItemClicked;
-import com.prashantb.ecommercetest.common.RatingEnum;
+import com.prashantb.ecommercetest.common.ProductTypeEnum;
 import com.prashantb.ecommercetest.common.Utils;
 import com.prashantb.ecommercetest.home.categories.CategoriesAdapter;
 import com.prashantb.ecommercetest.home.rankings.RankingAdapter;
+import com.prashantb.ecommercetest.productDetails.ProductDetailsActivity;
 import com.prashantb.ecommercetest.product_list.ProductListActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -77,19 +79,19 @@ public class HomeActivity extends BaseActivity implements HomeContract.View
         mostOrderedRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this
                 , LinearLayoutManager.HORIZONTAL
                 , false));
-        mostOrderedAdapter = new RankingAdapter(this, this, RatingEnum.MOST_ORDERED);
+        mostOrderedAdapter = new RankingAdapter(this, this, ProductTypeEnum.MOST_ORDERED);
         mostOrderedRecyclerView.setAdapter(mostOrderedAdapter);
 
         mostSharedRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this
                 , LinearLayoutManager.HORIZONTAL
                 , false));
-        mostSharedAdapter = new RankingAdapter(this, this, RatingEnum.MOST_SHARED);
+        mostSharedAdapter = new RankingAdapter(this, this, ProductTypeEnum.MOST_SHARED);
         mostSharedRecyclerView.setAdapter(mostSharedAdapter);
 
         mostViewedRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this
                 , LinearLayoutManager.HORIZONTAL
                 , false));
-        mostViewedAdapter = new RankingAdapter(this, this, RatingEnum.MOST_VIEWED);
+        mostViewedAdapter = new RankingAdapter(this, this, ProductTypeEnum.MOST_VIEWED);
         mostViewedRecyclerView.setAdapter(mostViewedAdapter);
     }
 
@@ -141,15 +143,32 @@ public class HomeActivity extends BaseActivity implements HomeContract.View
     }
 
     @Override
-    public void itemClicked(String tag, int position) {
+    public void itemClicked(ProductTypeEnum tag, int position) {
         switch (tag) {
-            case AppConstants.TYPE_RATING:
-                //TODO show details screen
+            case MOST_ORDERED:
+                List<ProductDetails> rankingList = mostOrderedAdapter.getRankingList();
+                openProductDetailsActivity(rankingList.get(position));
                 break;
-            case AppConstants.TYPE_CATEGORY:
+            case MOST_SHARED:
+                List<ProductDetails> rankingListShared = mostSharedAdapter.getRankingList();
+                openProductDetailsActivity(rankingListShared.get(position));
+                break;
+            case MOST_VIEWED:
+                List<ProductDetails> rankingListViewed = mostViewedAdapter.getRankingList();
+                openProductDetailsActivity(rankingListViewed.get(position));
+                break;
+            case CATEGORIES:
                 break;
 
         }
+    }
+
+    private void openProductDetailsActivity(ProductDetails productDetails) {
+        Intent intent = new Intent(HomeActivity.this, ProductDetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstants.KEY_MODEL, productDetails);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override

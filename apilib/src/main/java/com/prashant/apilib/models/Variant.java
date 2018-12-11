@@ -1,9 +1,13 @@
 package com.prashant.apilib.models;
 
+import android.content.Intent;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Variant {
+import java.io.Serializable;
+
+public class Variant implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -13,7 +17,7 @@ public class Variant {
     private String color;
     @SerializedName("size")
     @Expose
-    private Object size;
+    private Integer size;
     @SerializedName("price")
     @Expose
     private Integer price;
@@ -34,11 +38,11 @@ public class Variant {
         this.color = color;
     }
 
-    public Object getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(Object size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 

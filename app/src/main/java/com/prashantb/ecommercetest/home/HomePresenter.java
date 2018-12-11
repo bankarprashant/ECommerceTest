@@ -13,11 +13,10 @@ import com.prashant.apilib.models.Ranking;
 import com.prashant.apilib.models.RankingProduct;
 import com.prashantb.ecommercetest.R;
 import com.prashantb.ecommercetest.common.RatingComparator;
-import com.prashantb.ecommercetest.common.RatingEnum;
+import com.prashantb.ecommercetest.common.ProductTypeEnum;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,9 +140,9 @@ class HomePresenter implements HomeContract.Presenter {
             sharedList = new ArrayList<>(mostSharedMap.values());
             viewedList = new ArrayList<>(mostViewedMap.values());
 
-            Collections.sort(orderedList, new RatingComparator(RatingEnum.MOST_ORDERED));
-            Collections.sort(sharedList, new RatingComparator(RatingEnum.MOST_SHARED));
-            Collections.sort(viewedList, new RatingComparator(RatingEnum.MOST_VIEWED));
+            Collections.sort(orderedList, new RatingComparator(ProductTypeEnum.MOST_ORDERED));
+            Collections.sort(sharedList, new RatingComparator(ProductTypeEnum.MOST_SHARED));
+            Collections.sort(viewedList, new RatingComparator(ProductTypeEnum.MOST_VIEWED));
             return null;
         }
 

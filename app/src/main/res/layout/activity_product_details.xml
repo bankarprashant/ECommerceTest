@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/toolbar" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/_50dp"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/productIdTextView"
+                style="@style/BoldFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_space"
+                android:padding="@dimen/small_space"
+                android:textSize="@dimen/large_text_size"
+                tools:text="@string/product_id" />
+
+            <TextView
+                android:id="@+id/dateAddedTextView"
+                style="@style/BoldFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productIdTextView"
+                android:layout_margin="@dimen/medium_space"
+                android:padding="@dimen/small_space"
+                android:textSize="@dimen/large_text_size"
+                tools:text="@string/date_added" />
+
+            <TextView
+                android:id="@+id/taxTextView"
+                style="@style/BoldFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateAddedTextView"
+                android:layout_margin="@dimen/medium_space"
+                android:padding="@dimen/small_space"
+                android:textSize="@dimen/large_text_size"
+                tools:text="@string/tax" />
+
+            <TextView
+                android:id="@+id/variantsTextView"
+                style="@style/BoldFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/taxTextView"
+                android:background="@color/splash_bg"
+                android:padding="@dimen/medium_space"
+                android:text="@string/variants"
+                android:textSize="@dimen/large_text_size" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/variantsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/variantsTextView" />
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

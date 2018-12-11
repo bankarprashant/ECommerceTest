@@ -13,4 +13,12 @@
     <string name="shared_count">Shared %1$d times</string>
     <string name="ordered_count">Ordered %1$d times</string>
     <string name="api_error_msg">Something went worng</string>
+    <string name="product_id">Product Id : %1$d</string>
+    <string name="date_added">Date Added : %1$s</string>
+    <string name="tax">Tax : %1$s @ %2$s</string>
+    <string name="variants">Variants :</string>
+    <string name="na">NA</string>
+    <string name="color">Color : %1$s</string>
+    <string name="size">Size : %1$s</string>
+    <string name="price">Price : %1$d</string>
 </resources>

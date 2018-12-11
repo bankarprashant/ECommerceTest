@@ -3,6 +3,7 @@ package com.prashantb.ecommercetest.product_list;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.prashantb.ecommercetest.BaseActivity;
@@ -34,5 +35,15 @@ public class ProductListActivity extends BaseActivity {
     private void setUPToolbar() {
         toolbarTitleTextView.setText("");
         setToolbar(toolbar, R.drawable.ic_arrow_back);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
