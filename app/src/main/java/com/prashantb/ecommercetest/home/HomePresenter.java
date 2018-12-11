@@ -11,8 +11,13 @@ import com.prashant.apilib.models.GetProductsResponse;
 import com.prashant.apilib.models.ProductDetails;
 import com.prashant.apilib.models.Ranking;
 import com.prashant.apilib.models.RankingProduct;
+import com.prashantb.ecommercetest.R;
+import com.prashantb.ecommercetest.common.RatingComparator;
+import com.prashantb.ecommercetest.common.RatingEnum;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +32,7 @@ class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void getProductsApiCall() {
+        view.showProgressBar();
 
         view.getNetworkClient().getProductsData("yes", new Callback<GetProductsResponse>() {
             @Override
@@ -34,6 +40,9 @@ class HomePresenter implements HomeContract.Presenter {
                 Log.d(TAG, "onSuccess() called with: matchesResponse = [" + response + "]");
                 if (response != null) {
                     new FormatResponseAsync(response).execute();
+                } else {
+                    view.hideProgressBar();
+                    view.apiError(R.string.api_error_msg);
                 }
             }
 
@@ -41,6 +50,9 @@ class HomePresenter implements HomeContract.Presenter {
             public void onError(String error, ErrorCodeEnum errorCode) {
                 super.onError(error, errorCode);
                 Log.d(TAG, "onError() called with: error = [" + error + "], errorCode = [" + errorCode + "]");
+
+                view.apiError(error);
+                view.hideProgressBar();
             }
         });
     }
@@ -50,9 +62,10 @@ class HomePresenter implements HomeContract.Presenter {
         private GetProductsResponse response;
         private Map<Integer, ProductDetails> productDetailsMap = new HashMap<>();
         private Map<Integer, Category> categoryMap = new HashMap<>();
-        private Map<Integer, ProductDetails> mostViewedMap = new HashMap<>();
-        private Map<Integer, ProductDetails> mostOrderedMap = new HashMap<>();
-        private Map<Integer, ProductDetails> mostSharedMap = new HashMap<>();
+
+        private ArrayList<ProductDetails> orderedList;
+        private ArrayList<ProductDetails> viewedList;
+        private ArrayList<ProductDetails> sharedList;
 
         FormatResponseAsync(GetProductsResponse response) {
             this.response = response;
@@ -78,6 +91,10 @@ class HomePresenter implements HomeContract.Presenter {
                     }
                 }
             }
+
+            Map<Integer, ProductDetails> mostViewedMap = new HashMap<>();
+            Map<Integer, ProductDetails> mostOrderedMap = new HashMap<>();
+            Map<Integer, ProductDetails> mostSharedMap = new HashMap<>();
 
             List<Ranking> rankingsList = response.getRankings();
             if (rankingsList != null && rankingsList.size() > 0) {
@@ -119,6 +136,14 @@ class HomePresenter implements HomeContract.Presenter {
             }
             categoryMap.size();
             productDetailsMap.size();
+
+            orderedList = new ArrayList<>(mostOrderedMap.values());
+            sharedList = new ArrayList<>(mostSharedMap.values());
+            viewedList = new ArrayList<>(mostViewedMap.values());
+
+            Collections.sort(orderedList, new RatingComparator(RatingEnum.MOST_ORDERED));
+            Collections.sort(sharedList, new RatingComparator(RatingEnum.MOST_SHARED));
+            Collections.sort(viewedList, new RatingComparator(RatingEnum.MOST_VIEWED));
             return null;
         }
 
@@ -126,10 +151,11 @@ class HomePresenter implements HomeContract.Presenter {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             //TODO set category list
+            view.hideProgressBar();
 
-            view.setMostOrderedList(new ArrayList<>(mostOrderedMap.values()));
-            view.setMostViewedList(new ArrayList<>(mostViewedMap.values()));
-            view.setMostSharedList(new ArrayList<>(mostSharedMap.values()));
+            view.setMostOrderedList(orderedList);
+            view.setMostViewedList(viewedList);
+            view.setMostSharedList(sharedList);
         }
     }
 }

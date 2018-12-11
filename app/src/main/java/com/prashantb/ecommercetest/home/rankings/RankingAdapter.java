@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.prashant.apilib.models.ProductDetails;
 import com.prashantb.ecommercetest.R;
+import com.prashantb.ecommercetest.common.AppConstants;
 import com.prashantb.ecommercetest.common.IOnItemClicked;
 import com.prashantb.ecommercetest.common.RatingEnum;
 
@@ -52,6 +54,18 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
         } else if (ratingEnum.equals(RatingEnum.MOST_SHARED)) {
             holder.countTextView.setText(context.getString(R.string.shared_count, productDetails.getShares()));
         }
+
+        holder.container.setTag(holder);
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyViewHolder holder1 = (MyViewHolder) view.getTag();
+
+                if (iOnItemClicked != null) {
+                    iOnItemClicked.itemClicked(AppConstants.TYPE_RATING, holder1.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -68,15 +82,13 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
         notifyDataSetChanged();
     }
 
-    public void setiOnItemClicked(IOnItemClicked iOnItemClicked) {
-        this.iOnItemClicked = iOnItemClicked;
-    }
-
     class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.titleTextView)
         TextView titleTextView;
         @BindView(R.id.countTextView)
         TextView countTextView;
+        @BindView(R.id.container)
+        RelativeLayout container;
 
         MyViewHolder(View itemView) {
             super(itemView);

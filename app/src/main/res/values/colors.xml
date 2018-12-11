@@ -10,5 +10,6 @@
 
     <color name="divider_view_color">#1c000000</color>
     <color name="splash_bg">#100082c6</color>
+    <color name="progress_gradient">#40000000</color>
 
 </resources>

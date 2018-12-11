@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.prashant.apilib.INetworkClient;
 import com.prashant.apilib.models.ProductDetails;
 import com.prashantb.ecommercetest.BaseActivity;
 import com.prashantb.ecommercetest.R;
+import com.prashantb.ecommercetest.common.AppConstants;
 import com.prashantb.ecommercetest.common.IOnItemClicked;
 import com.prashantb.ecommercetest.common.RatingEnum;
+import com.prashantb.ecommercetest.common.Utils;
 import com.prashantb.ecommercetest.home.categories.CategoriesAdapter;
 import com.prashantb.ecommercetest.home.rankings.RankingAdapter;
 import com.prashantb.ecommercetest.product_list.ProductListActivity;
@@ -44,6 +47,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View
     TextView viewedAllTextView;
     @BindView(R.id.toolbarTitleTextView)
     TextView toolbarTitleTextView;
+    @BindView(R.id.progressContainer)
+    RelativeLayout progressContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,12 +107,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View
 
     @Override
     public void showProgressBar() {
-
+        Utils.showProgressBar(progressContainer);
     }
 
     @Override
     public void hideProgressBar() {
-
+        Utils.hideProgressBar(progressContainer);
     }
 
     @Override
@@ -122,12 +127,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View
 
     @Override
     public void apiError(String msg) {
-
+        Utils.showToast(getApplicationContext(), msg);
     }
 
     @Override
     public void apiError(int msg) {
-
+        Utils.showToast(getApplicationContext(), msg);
     }
 
     @OnClick(R.id.viewedAllTextView)
@@ -137,7 +142,14 @@ public class HomeActivity extends BaseActivity implements HomeContract.View
 
     @Override
     public void itemClicked(String tag, int position) {
+        switch (tag) {
+            case AppConstants.TYPE_RATING:
+                //TODO show details screen
+                break;
+            case AppConstants.TYPE_CATEGORY:
+                break;
 
+        }
     }
 
     @Override

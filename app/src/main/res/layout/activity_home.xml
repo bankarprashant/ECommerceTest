@@ -142,4 +142,18 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/progressContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/progress_gradient"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ProgressBar
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
