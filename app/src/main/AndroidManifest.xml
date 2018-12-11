@@ -39,7 +39,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".CategoriesListActivity"
+            android:name=".categories_list.CategoriesListActivity"
             android:screenOrientation="portrait" />
     </application>
 

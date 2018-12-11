@@ -5,7 +5,7 @@
     android:layout_width="@dimen/_150dp"
     android:layout_height="@dimen/_150dp"
     android:layout_margin="@dimen/small_space"
-    android:background="@color/splash_bg"
+    android:background="@color/light_bg"
     android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
+        android:layout_margin="@dimen/small_space"
         android:textSize="@dimen/title_text_size"
         tools:text="Shirts" />
 

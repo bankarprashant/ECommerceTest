@@ -5,6 +5,7 @@ import com.prashant.apilib.models.ProductDetails;
 import com.prashantb.ecommercetest.BaseView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 interface HomeContract {
@@ -23,5 +24,7 @@ interface HomeContract {
 
     interface Presenter {
         void getProductsApiCall();
+
+        ArrayList<Category> getSubCategories(Map<Integer, Category> categoryMap, List<Integer> childCategories);
     }
 }

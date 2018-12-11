@@ -158,4 +158,20 @@ class HomePresenter implements HomeContract.Presenter {
         }
     }
 
+    @Override
+    public ArrayList<Category> getSubCategories(Map<Integer, Category> categoryMap, List<Integer> childCategories) {
+        ArrayList<Category> categoryList = new ArrayList<>();
+
+        if (categoryMap != null) {
+
+            for (int i = 0; i < childCategories.size(); i++) {
+                int id = childCategories.get(i);
+
+                if (categoryMap.containsKey(id)) {
+                    categoryList.add(categoryMap.get(id));
+                }
+            }
+        }
+        return categoryList;
+    }
 }

@@ -1,4 +1,4 @@
-package com.prashantb.ecommercetest;
+package com.prashantb.ecommercetest.categories_list;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.prashant.apilib.models.Category;
 import com.prashant.apilib.models.ProductDetails;
+import com.prashantb.ecommercetest.BaseActivity;
+import com.prashantb.ecommercetest.R;
 import com.prashantb.ecommercetest.common.AppConstants;
 import com.prashantb.ecommercetest.common.IOnItemClicked;
 import com.prashantb.ecommercetest.common.ProductTypeEnum;
@@ -24,11 +26,13 @@ import java.util.Map;
 
 import butterknife.BindView;
 
-public class CategoriesListActivity extends BaseActivity implements IOnItemClicked {
+public class CategoriesListActivity extends BaseActivity implements IOnItemClicked
+        , CategoriesListContract.View {
     private static final String TAG = "CategoriesListActivity";
     private ArrayList<Category> categoryList;
     private CategoriesAdapter adapter;
     private Map<Integer, Category> categoryMap;
+    private CategoriesListContract.Presenter presenter;
 
     @BindView(R.id.toolbarTitleTextView)
     TextView toolbarTitleTextView;
@@ -49,9 +53,9 @@ public class CategoriesListActivity extends BaseActivity implements IOnItemClick
     private void initialize() {
         getBundleData();
         setUPToolbar();
+        initPresenter();
         setUpViews();
     }
-
 
     private void getBundleData() {
         Bundle bundle = getIntent().getExtras();
@@ -64,6 +68,10 @@ public class CategoriesListActivity extends BaseActivity implements IOnItemClick
 
     private void setUPToolbar() {
         setToolbar(toolbar, R.drawable.ic_arrow_back);
+    }
+
+    private void initPresenter() {
+        presenter = new CategoriesPresenter(this);
     }
 
     private void setUpViews() {
@@ -96,16 +104,7 @@ public class CategoriesListActivity extends BaseActivity implements IOnItemClick
         if (productDetails != null && productDetails.size() > 0) {
             showProductListActivity(category.getName(), ProductTypeEnum.CATEGORIES, category);
         } else if (childCategories != null && childCategories.size() > 0) {
-            if (categoryMap != null) {
-                ArrayList<Category> categoryList = new ArrayList<>();
-                for (int i = 0; i < childCategories.size(); i++) {
-                    int id = childCategories.get(i);
-                    if (categoryMap.containsKey(id)) {
-                        categoryList.add(categoryMap.get(id));
-                    }
-                }
-                showCategoriesListActivity(category.getName(), categoryList);
-            }
+            showCategoriesListActivity(category.getName(), presenter.getSubCategories(categoryMap, childCategories));
         }
     }
 

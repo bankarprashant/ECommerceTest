@@ -12,7 +12,7 @@ import com.prashant.apilib.INetworkClient;
 import com.prashant.apilib.models.Category;
 import com.prashant.apilib.models.ProductDetails;
 import com.prashantb.ecommercetest.BaseActivity;
-import com.prashantb.ecommercetest.CategoriesListActivity;
+import com.prashantb.ecommercetest.categories_list.CategoriesListActivity;
 import com.prashantb.ecommercetest.R;
 import com.prashantb.ecommercetest.common.AppConstants;
 import com.prashantb.ecommercetest.common.IOnItemClicked;
@@ -25,7 +25,6 @@ import com.prashantb.ecommercetest.product_list.ProductListActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +33,7 @@ import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity implements HomeContract.View
         , IOnItemClicked {
+
     private static final String TAG = "HomeActivity";
     private HomeContract.Presenter presenter;
     private CategoriesAdapter categoriesAdapter;
@@ -172,19 +172,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View
                 if (productDetails != null && productDetails.size() > 0) {
                     showProductListActivity(category.getName(), ProductTypeEnum.CATEGORIES);
                 } else if (childCategories != null && childCategories.size() > 0) {
-                    if (categoryMap != null) {
-
-                        ArrayList<Category> categoryList = new ArrayList<>();
-
-                        for (int i = 0; i < childCategories.size(); i++) {
-                            int id = childCategories.get(i);
-
-                            if (categoryMap.containsKey(id)) {
-                                categoryList.add(categoryMap.get(id));
-                            }
-                        }
-                        showCategoriesListActivity(category.getName(), categoryList);
-                    }
+                    showCategoriesListActivity(category.getName(), presenter.getSubCategories(categoryMap, childCategories));
                 }
                 break;
         }

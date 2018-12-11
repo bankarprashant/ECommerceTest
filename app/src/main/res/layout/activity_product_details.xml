@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/taxTextView"
-                android:background="@color/splash_bg"
+                android:background="@color/light_bg"
                 android:padding="@dimen/medium_space"
                 android:text="@string/variants"
                 android:textSize="@dimen/large_text_size" />
