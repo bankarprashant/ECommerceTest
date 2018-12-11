@@ -1,14 +1,49 @@
 package com.prashantb.ecommercetest.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.prashant.apilib.INetworkClient;
+import com.prashant.apilib.models.ProductDetails;
 import com.prashantb.ecommercetest.BaseActivity;
 import com.prashantb.ecommercetest.R;
+import com.prashantb.ecommercetest.common.IOnItemClicked;
+import com.prashantb.ecommercetest.common.RatingEnum;
+import com.prashantb.ecommercetest.home.categories.CategoriesAdapter;
+import com.prashantb.ecommercetest.home.rankings.RankingAdapter;
+import com.prashantb.ecommercetest.product_list.ProductListActivity;
 
-public class HomeActivity extends BaseActivity implements HomeContract.View {
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class HomeActivity extends BaseActivity implements HomeContract.View
+        , IOnItemClicked {
     private static final String TAG = "HomeActivity";
     private HomeContract.Presenter presenter;
+    private CategoriesAdapter categoriesAdapter;
+    private RankingAdapter mostOrderedAdapter, mostViewedAdapter, mostSharedAdapter;
+
+    @BindView(R.id.categoriesRecyclerView)
+    RecyclerView categoriesRecyclerView;
+    @BindView(R.id.mostOrderedRecyclerView)
+    RecyclerView mostOrderedRecyclerView;
+    @BindView(R.id.mostSharedRecyclerView)
+    RecyclerView mostSharedRecyclerView;
+    @BindView(R.id.mostViewedRecyclerView)
+    RecyclerView mostViewedRecyclerView;
+    @BindView(R.id.orderedAllTextView)
+    TextView orderedAllTextView;
+    @BindView(R.id.sharedAllTextView)
+    TextView sharedAllTextView;
+    @BindView(R.id.viewedAllTextView)
+    TextView viewedAllTextView;
+    @BindView(R.id.toolbarTitleTextView)
+    TextView toolbarTitleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +54,42 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     }
 
     private void initialize() {
+        setToolbarTitle();
         initPresenter();
+        setAdapter();
         getProductsApiCall();
+    }
+
+    private void setAdapter() {
+//        categoriesRecyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this
+//                , 2
+//                , LinearLayoutManager.HORIZONTAL
+//                , false));
+//
+//        categoriesAdapter = new CategoriesAdapter();
+//        categoriesRecyclerView.setAdapter(categoriesAdapter);
+
+        mostOrderedRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this
+                , LinearLayoutManager.HORIZONTAL
+                , false));
+        mostOrderedAdapter = new RankingAdapter(this, this, RatingEnum.MOST_ORDERED);
+        mostOrderedRecyclerView.setAdapter(mostOrderedAdapter);
+
+        mostSharedRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this
+                , LinearLayoutManager.HORIZONTAL
+                , false));
+        mostSharedAdapter = new RankingAdapter(this, this, RatingEnum.MOST_SHARED);
+        mostSharedRecyclerView.setAdapter(mostSharedAdapter);
+
+        mostViewedRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this
+                , LinearLayoutManager.HORIZONTAL
+                , false));
+        mostViewedAdapter = new RankingAdapter(this, this, RatingEnum.MOST_VIEWED);
+        mostViewedRecyclerView.setAdapter(mostViewedAdapter);
+    }
+
+    private void setToolbarTitle() {
+        toolbarTitleTextView.setText(R.string.home);
     }
 
     private void initPresenter() {
@@ -59,5 +128,30 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public void apiError(int msg) {
 
+    }
+
+    @OnClick(R.id.viewedAllTextView)
+    public void viewAllClicked() {
+        startActivity(new Intent(HomeActivity.this, ProductListActivity.class));
+    }
+
+    @Override
+    public void itemClicked(String tag, int position) {
+
+    }
+
+    @Override
+    public void setMostViewedList(ArrayList<ProductDetails> productList) {
+        mostViewedAdapter.setRankingList(productList);
+    }
+
+    @Override
+    public void setMostOrderedList(ArrayList<ProductDetails> productList) {
+        mostOrderedAdapter.setRankingList(productList);
+    }
+
+    @Override
+    public void setMostSharedList(ArrayList<ProductDetails> productList) {
+        mostSharedAdapter.setRankingList(productList);
     }
 }

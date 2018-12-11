@@ -3,4 +3,13 @@
 
     <string name="home">Home</string>
     <string name="splash_msg">Heady - Android Skill Assessment Test (SAT)\nE-Commerce\nPrashant Bankar</string>
+    <string name="categories">Categories</string>
+    <string name="most_viewed">Most Viewed</string>
+    <string name="most_shared">Most Shared</string>
+    <string name="most_ordered">Most Ordered</string>
+    <string name="no_data_found">No data found</string>
+    <string name="see_all">See All</string>
+    <string name="viewed_count">Viewed %1$d times</string>
+    <string name="shared_count">Shared %1$d times</string>
+    <string name="ordered_count">Ordered %1$d times</string>
 </resources>

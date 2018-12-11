@@ -33,5 +33,6 @@
     <!-- Text Sizes-->
     <dimen name="small_text_size">12sp</dimen>
     <dimen name="large_text_size">16sp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
     <dimen name="toolbar_text_size">18sp</dimen>
 </resources>

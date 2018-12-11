@@ -15,7 +15,7 @@ public class Category {
     private String name;
     @SerializedName("products")
     @Expose
-    private List<Product> products = null;
+    private List<ProductDetails> productDetails = null;
     @SerializedName("child_categories")
     @Expose
     private List<Integer> childCategories = null;
@@ -36,12 +36,12 @@ public class Category {
         this.name = name;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<ProductDetails> getProductDetails() {
+        return productDetails;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProductDetails(List<ProductDetails> productDetails) {
+        this.productDetails = productDetails;
     }
 
     public List<Integer> getChildCategories() {
@@ -57,7 +57,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", products=" + products +
+                ", productDetails=" + productDetails +
                 ", childCategories=" + childCategories +
                 '}';
     }

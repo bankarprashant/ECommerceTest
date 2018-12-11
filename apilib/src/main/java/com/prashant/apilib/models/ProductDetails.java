@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Product {
+public class ProductDetails extends RankingFields {
 
     @SerializedName("id")
     @Expose
@@ -65,7 +65,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "ProductDetails{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dateAdded='" + dateAdded + '\'' +

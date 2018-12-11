@@ -3,20 +3,11 @@ package com.prashant.apilib.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RankingProduct {
+public class RankingProduct extends RankingFields {
 
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("view_count")
-    @Expose
-    private Integer viewCount;
-    @SerializedName("order_count")
-    @Expose
-    private Integer orderCount;
-    @SerializedName("shares")
-    @Expose
-    private Integer shares;
 
     public Integer getId() {
         return id;
@@ -26,37 +17,10 @@ public class RankingProduct {
         this.id = id;
     }
 
-    public Integer getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(Integer viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    public Integer getOrderCount() {
-        return orderCount;
-    }
-
-    public void setOrderCount(Integer orderCount) {
-        this.orderCount = orderCount;
-    }
-
-    public Integer getShares() {
-        return shares;
-    }
-
-    public void setShares(Integer shares) {
-        this.shares = shares;
-    }
-
     @Override
     public String toString() {
-        return "Product_{" +
+        return "RankingProduct{" +
                 "id=" + id +
-                ", viewCount=" + viewCount +
-                ", orderCount=" + orderCount +
-                ", shares=" + shares +
                 '}';
     }
 }

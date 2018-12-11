@@ -30,7 +30,7 @@ public class APILib {
         return iNetworkClient;
     }
 
-    public static Context getContext() {
+    static Context getContext() {
         return appContext;
     }
 
